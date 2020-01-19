@@ -1,0 +1,115 @@
+.list-container {
+    background-color: $yellow;
+    height: 100vh;
+    color: $pink;
+
+    .list-title {
+        background-color: $pink;
+        font-size: 2.5rem;
+        color: $yellow;
+        text-shadow: 2px 2px 0 $darkteal;
+        padding: 0.5em;
+
+        &::before {
+            content: "//";
+            color: $darkteal;
+            padding-right: 5px;
+            text-shadow: none;
+            font-family: "Open Sans", sans-serif;
+            letter-spacing: 3px;
+
+        }
+
+    }
+
+}
+
+.list {
+    color: $darkteal;
+    grid-area: list;
+    list-style: none;
+    padding: 1em;
+    font-size: 1.5rem;
+
+    li {
+        display: inline;
+    }
+
+    input {
+        outline: none;
+        border: none;
+        background-color: #e9e6c9;
+        color: $darkteal;
+        font-family: 'Titillium Web', sans-serif;
+        font-weight: 200;
+        font-size: 1.5rem;
+        width: 100%;
+
+        &[type=checkbox] {
+            display: none;
+        }
+    }
+}
+
+.new-item {
+    @extend .list;
+}
+
+.checkbox {
+    position: absolute;
+    height: 20px;
+    width: 20px;
+    top: 15px;
+    left: 0;
+    background-color: $pink;
+    border-radius: 2px;
+
+    &--add {
+        height: 40px;
+        width: 40px;
+        color: $yellow;
+        font-size: 2rem;
+        border: none;
+    }
+}
+
+.sublist {
+    left: 30px;
+    display: flex;
+
+    input {
+        color: $darkteallight;
+    }
+
+    .checkbox {
+        background-color: $darkteal;
+    }
+}
+
+.list-item {
+    position: relative;
+    padding-left: 30px;
+    display: flex;
+    height: 2em;
+    width: calc(100% - 60px);
+
+    &--new {
+        border-bottom: 3px solid $pink;
+        height: 3em;
+        padding-left: 50px;
+
+        input {
+            color: $pink;
+
+            &::placeholder {
+                color: $grey;
+            }
+
+        }
+    }
+}
+
+.item-collection {
+    border-bottom: 1px solid $darktealverylight;
+    padding: 0.5em 0;
+}

@@ -1,0 +1,45 @@
+<%- include("partials/header") -%>
+
+<div class="list-container">
+
+    <h1 class="list-title"><%= listTitle %></h1>
+
+    <form class="new-item" action="" method="post">
+        <div class="list-item list-item--new">
+            <input type="text" name="newItem" placeholder="New Item" autocomplete="off" autofocus></input>
+            <button class="checkbox checkbox--add" type="submit" name="list" value="">+</button>
+        </div>
+    </form>
+
+    <% toDos.forEach(function(toDo) { %>
+
+    <form class="list" action="" method="post">
+        <div class="item-collection">
+            <div class="list-item">
+                <input type="checkbox">
+                <input type="text" name="item" value="<%= toDo[0] %>" autocomplete="off"></input>
+                <span class="checkbox"></span>
+            </div>
+
+            <% toDo[1].forEach(function(subToDo) { %>
+
+            <div class="list-item sublist">
+                <input type="checkbox">
+                <input type="text" name="item" value="<%= subToDo %>" autocomplete="off"></input>
+                <span class="checkbox"></span>
+            </div>
+
+            <% }); %>
+
+        </div>
+
+        <%  }) %>
+
+    </form>
+
+    <footer>
+        <p>Phil Martin 2020</p>
+    </footer>
+</div>
+
+<%- include("partials/footer") -%>
