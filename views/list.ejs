@@ -2,44 +2,100 @@
 
 <div class="list-container">
 
-    <h1 class="list-title"><%= listTitle %></h1>
+    <div class="title-container">
+        <h1 class="list-title--edit-heading">
+            <form action="/<%= title %>/edit-title" method="post"><input class="list-title--edit"
+                    onfocus="this.select();" type="text" value="<%= title %>" name="newTitle" autocomplete="off"
+                    autofocus></input>
+            </form>
+        </h1>
+        <h1 class="list-title list-title--static"><%= title %> </h1>
+        <div class="edit-icons-container">
+            <i title="Edit list title" class="fas fa-edit title-icon title-icon-edit"> </i> <a class="icon-link"
+                href="/<%= title %>/delete-list"><i title="Delete list"
+                    class="fas fa-trash-alt title-icon title-icon-delete"></i></a>
+        </div>
+    </div>
 
-    <form class="new-item" action="" method="post">
-        <div class="list-item list-item--new">
-            <input type="text" name="newItem" placeholder="New Item" autocomplete="off" autofocus></input>
-            <button class="checkbox checkbox--add" type="submit" name="list" value="">+</button>
+    <form class="new-item" action="/<%= title %>/add" method="post">
+        <div class="list-item--new">
+            <input type="text" name="newItem" placeholder="New item" autocomplete="off" autofocus></input>
+            <button title="Add new item" class="checkbox checkbox--add" type="submit" name="list" value="">+</button>
         </div>
     </form>
 
-    <% toDos.forEach(function(toDo) { %>
-
-    <form class="list" action="" method="post">
-        <div class="item-collection">
+    <% if (list.length > 0) { %>
+    <% let i = 0; %>
+    <% list.forEach(function(item) { %>
+    <div class="item-collection">
+        <form class="list" action="/<%= title %>/update" method="post">
             <div class="list-item">
-                <input type="checkbox">
-                <input type="text" name="item" value="<%= toDo[0] %>" autocomplete="off"></input>
-                <span class="checkbox"></span>
+
+                <% if (item.isComplete === true) { %>
+
+                <input class="complete" type="text" onChange="this.form.submit()" name="updatedToDo"
+                    value="<%= item.toDo %>" autocomplete="off"></input>
+                <button title="Mark complete / not complete" class="checkbox" type="submit" name="toDoToggleComplete"
+                    value="<%= item._id %>">
+                    <i class="fas fa-check tick"></i></button>
+                <div class="delete-item-button"><a href="/<%= title %>/delete-todo/<%= item._id %>/0"><i
+                            title="Delete item" class="fas fa-trash-alt"></i></a></div>
+
+                <% } else { %>
+                <input type="textarea" onChange="this.form.submit()" name="updatedToDo" value="<%= item.toDo %>"
+                    autocomplete="off"></input>
+                <button title="Mark complete / not complete" class="checkbox" type="submit" name="toDoToggleComplete"
+                    value="<%= item._id %>"></button>
+                <div title="Add subtask" class="subtask-button <%="subtask-button" + i%>"><i
+                        class=" fab fa-elementor"></i></div>
+
+                <% } %>
+
+                <input type="hidden" name="listName" value="<%= title %>"></input>
+                <input type="hidden" name="toDoId" value="<%= item._id %>"></input>
             </div>
 
-            <% toDo[1].forEach(function(subToDo) { %>
+            <% if (item.subtasks) { %>
 
-            <div class="list-item sublist">
-                <input type="checkbox">
-                <input type="text" name="item" value="<%= subToDo %>" autocomplete="off"></input>
-                <span class="checkbox"></span>
+            <% item.subtasks.forEach(function(subItem) { %>
+
+            <div class="list-item subtask">
+
+                <% if (subItem.isComplete === true) { %>
+
+                <input class="complete" type="text" onChange="this.form.submit()" name="updatedSubtask"
+                    value="<%= subItem.subtask %>" autocomplete="off"></input>
+                <button title="Mark complete / not complete" class="checkbox" type="submit" name="subtaskToggleComplete"
+                    value="<%= subItem._id %>"><i class="fas fa-check tick"></i></button>
+                <div class="delete-item-button"><a
+                        href="/<%= title %>/delete-todo/<%= item._id %>/<%= subItem._id %>"><i title="Delete item"
+                            class="fas fa-trash-alt"></i></a></div>
+
+                <% } else { %>
+
+                <input type="text" onChange="this.form.submit()" name="updatedSubtask" value="<%= subItem.subtask %>"
+                    autocomplete="off"></input>
+                <button title="Mark complete / not complete" class="checkbox" type="submit" name="subtaskToggleComplete"
+                    value="<%= subItem._id %>"></button>
+
+                <% } %>
+
+                <input type="hidden" name="subtaskId" value="<%= subItem._id %>"></input>
             </div>
+
 
             <% }); %>
+            <% } %>
+            <input class="subtask-new <%="subtask-new" + i%>" type="text" onChange="this.form.submit()"
+                name="newSubtask" placeholder="New subtask" autocomplete="off" autofocus></input>
+            <% i++ %>
+        </form>
+    </div>
 
-        </div>
+    <%  }) %>
+    <% } %>
 
-        <%  }) %>
-
-    </form>
-
-    <footer>
-        <p>Phil Martin 2020</p>
-    </footer>
-</div>
-
-<%- include("partials/footer") -%>
+    <div class=" created">
+        <p>Created by Phil Martin 2020</p>
+    </div>
+    <%- include("partials/footer") -%>

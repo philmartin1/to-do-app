@@ -1,14 +1,35 @@
 .list-container {
     background-color: $yellow;
-    height: 100vh;
+    min-height: 100vh;
     color: $pink;
+    max-width: 70vw;
+
+    @media (max-width: 825px) {
+        max-width: initial;
+    }
+
+    .title-container {
+
+        display: flex;
+        justify-content: space-between;
+        background-color: $pink;
+
+
+        .edit-icons-container {
+            display: flex;
+            justify-content: space-evenly;
+            flex-direction: column;
+            padding: 2em;
+
+        }
+    }
 
     .list-title {
-        background-color: $pink;
         font-size: 2.5rem;
         color: $yellow;
         text-shadow: 2px 2px 0 $darkteal;
         padding: 0.5em;
+        overflow: hidden;
 
         &::before {
             content: "//";
@@ -17,18 +38,79 @@
             text-shadow: none;
             font-family: "Open Sans", sans-serif;
             letter-spacing: 3px;
-
         }
 
+        &::selection {
+            background-color: $yellow;
+            color: $darkteal;
+            text-shadow: 2px 2px 0 $pink;
+        }
     }
 
+    .title-icon {
+        color: $yellow;
+        font-size: 1rem;
+
+        &:hover {
+            color: $darkteal;
+            text-shadow: 2px 2px 0 $yellow;
+            cursor: pointer;
+        }
+    }
+
+    .icon-link {
+        display: inline;
+    }
+
+}
+
+.list-title--edit-heading {
+    background-color: $darkteallight;
+    font-size: 2.5rem;
+    color: $yellow;
+    text-shadow: 2px 2px 0 $darkteal;
+    padding: 0;
+    overflow: hidden;
+    display: none;
+}
+
+.list-title--edit {
+    @extend .list-title;
+    font-family: 'Titillium Web', sans-serif;
+    font-weight: bold;
+    border: none;
+    outline: none;
+    padding: 0;
+    display: none;
+    background-color: $pinkedit;
+
+    &:focus {
+        &::selection {
+            background-color: $pinkedit;
+            color: $yellow;
+            text-shadow: 2px 2px 0 $yellow;
+        }
+    }
+}
+
+.list-title--static {
+    max-width: calc(70vw - 5em) !important;
+
+    @media (max-width: 825px) {
+        max-width: calc(100vw - 3.5em) !important;
+    }
+}
+
+.show-completed {
+    @extend .created;
+    left: 1em
 }
 
 .list {
     color: $darkteal;
     grid-area: list;
     list-style: none;
-    padding: 1em;
+    padding: 0.5em 1em;
     font-size: 1.5rem;
 
     li {
@@ -43,10 +125,17 @@
         font-family: 'Titillium Web', sans-serif;
         font-weight: 200;
         font-size: 1.5rem;
-        width: 100%;
+        width: calc(100% - 3em);
+        padding-left: 0.5em;
+        overflow-x: scroll;
 
-        &[type=checkbox] {
-            display: none;
+        &:focus {
+            color: $pink;
+            background-color: $darktealverylight;
+        }
+
+        &.complete {
+            text-decoration: line-through;
         }
     }
 }
@@ -63,6 +152,7 @@
     left: 0;
     background-color: $pink;
     border-radius: 2px;
+    border: none;
 
     &--add {
         height: 40px;
@@ -70,36 +160,41 @@
         color: $yellow;
         font-size: 2rem;
         border: none;
+        margin-left: 0.5em;
     }
+
+    &:hover {
+        background-color: $pinkedit;
+        cursor: pointer
+    }
+
+    &:active {
+        outline: none;
+    }
+
 }
 
-.sublist {
-    left: 30px;
-    display: flex;
-
-    input {
-        color: $darkteallight;
-    }
-
-    .checkbox {
-        background-color: $darkteal;
-    }
+.tick {
+    color: $yellow
 }
 
 .list-item {
     position: relative;
     padding-left: 30px;
     display: flex;
+    flex-direction: column;
     height: 2em;
-    width: calc(100% - 60px);
 
     &--new {
+        @extend .list-item;
+        flex-direction: row;
         border-bottom: 3px solid $pink;
+        padding-left: 0;
         height: 3em;
-        padding-left: 50px;
 
         input {
             color: $pink;
+            padding-left: 3em;
 
             &::placeholder {
                 color: $grey;
@@ -109,7 +204,70 @@
     }
 }
 
+.subtask {
+    left: 30px;
+    display: flex;
+    width: calc(100% - 2.5em);
+
+    input {
+        color: $darkteallight;
+    }
+
+    .checkbox {
+        background-color: $darkteal;
+
+        &:hover {
+            background-color: $darkteallight;
+            cursor: pointer
+        }
+    }
+
+    &-new {
+        display: none;
+        margin-left: 30px;
+        width: calc(100% - 5em);
+    }
+
+
+}
+
+.subtask-button,
+.delete-item-button {
+    background-color: rgba(0, 0, 0, 0);
+    color: $darkteallight;
+    border: none;
+    font-size: 1.4rem;
+    position: absolute;
+    height: 20px;
+    width: 20px;
+    top: calc(50% - 0.8rem);
+    right: 0;
+
+    &:hover {
+        color: $darkteal;
+        cursor: pointer
+    }
+
+    a {
+        color: $darkteallight;
+
+        &:hover {
+            color: $darkteal;
+        }
+    }
+}
+
 .item-collection {
     border-bottom: 1px solid $darktealverylight;
-    padding: 0.5em 0;
+}
+
+.created {
+    position: absolute;
+    bottom: 1em;
+    right: 1em;
+    padding: 0.25em 0.5em;
+    text-align: right;
+    background-color: $pink;
+    color: $yellow;
+    font-size: 0.75rem;
 }

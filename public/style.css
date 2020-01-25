@@ -13,13 +13,35 @@ body {
   color: #e9e6c9;
 }
 
+.container {
+  position: relative;
+  display: grid;
+  grid-template-areas: "header list";
+  grid-template-columns: 1fr 3fr;
+}
+@media (max-width: 825px) {
+  .container {
+    grid-template-areas: "header" "list";
+    grid-template-columns: 1fr;
+  }
+}
+
 header {
-  padding: 0.5em;
-  font-size: 5rem;
+  padding: 2em;
   font-weight: bold;
   background-color: #003f5c;
   color: #e9e6c9;
   grid-area: header;
+  max-width: 30vw;
+}
+@media (max-width: 825px) {
+  header {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    padding: 1em;
+    max-width: initial;
+  }
 }
 
 a {
@@ -34,10 +56,21 @@ a:hover {
   display: grid;
   grid-template-areas: "box1 box2" "box3 box4";
   font-family: "Open Sans", sans-serif;
-  font-size: 7rem;
+  font-size: 6em;
   letter-spacing: 20px;
   line-height: 1;
-  border-bottom: 3px solid #7a7a7a;
+  border-bottom: 3px solid #e9e6c9;
+  max-width: 300px;
+}
+.logo-container:hover {
+  border-bottom: 3px solid #bc4873;
+}
+@media (max-width: 825px) {
+  .logo-container {
+    font-size: 2rem;
+    letter-spacing: 10px;
+    margin-right: 7em;
+  }
 }
 
 .box1 {
@@ -60,11 +93,35 @@ a:hover {
   color: #bc4873;
 }
 
-.container {
-  display: grid;
-  grid-template-areas: "header list" "header list" "header list" "header list" "header list";
-  grid-template-columns: 1fr 3fr;
-  height: 100vh;
+.menu {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  font-family: "Open Sans", sans-serif;
+  font-weight: 200;
+  font-size: 2rem;
+  letter-spacing: 15px;
+  cursor: pointer;
+}
+.menu::after {
+  content: "// LISTS";
+  letter-spacing: 0;
+}
+.menu:hover {
+  color: #bc4873;
+}
+@media (min-width: 825px) {
+  .menu {
+    display: none;
+  }
+}
+
+@media (max-width: 825px) {
+  nav {
+    display: none;
+    margin: auto;
+    width: 60vw;
+  }
 }
 
 .nav-list {
@@ -85,29 +142,56 @@ a:hover {
 }
 .nav-list li {
   padding: 0.5em;
+  border-bottom: 1px solid rgba(188, 72, 115, 0.5);
+  overflow: scroll;
 }
 .nav-list li:hover {
-  transition: all 0.5s ease;
-  transform: scale(1.2);
+  transition: all 0.2s ease;
+  transform: scale(1.1);
+}
+.nav-list li:hover a {
+  color: #e9e6c9;
+}
+.nav-list li.list-title--new:hover {
+  background-color: #003f5c;
+  transform: none;
 }
 
-.list-title--new {
-  font-weight: 200;
+.list-title--new input {
+  background-color: #003f5c !important;
+  color: #e9e6c9 !important;
 }
 
 .list-container {
   background-color: #e9e6c9;
-  height: 100vh;
+  min-height: 100vh;
   color: #bc4873;
+  max-width: 70vw;
 }
-.list-container .list-title {
+@media (max-width: 825px) {
+  .list-container {
+    max-width: initial;
+  }
+}
+.list-container .title-container {
+  display: flex;
+  justify-content: space-between;
   background-color: #bc4873;
+}
+.list-container .title-container .edit-icons-container {
+  display: flex;
+  justify-content: space-evenly;
+  flex-direction: column;
+  padding: 2em;
+}
+.list-container .list-title, .list-container .list-title--edit {
   font-size: 2.5rem;
   color: #e9e6c9;
   text-shadow: 2px 2px 0 #003f5c;
   padding: 0.5em;
+  overflow: hidden;
 }
-.list-container .list-title::before {
+.list-container .list-title::before, .list-container .list-title--edit::before {
   content: "//";
   color: #003f5c;
   padding-right: 5px;
@@ -115,12 +199,67 @@ a:hover {
   font-family: "Open Sans", sans-serif;
   letter-spacing: 3px;
 }
+.list-container .list-title::selection, .list-container .list-title--edit::selection {
+  background-color: #e9e6c9;
+  color: #003f5c;
+  text-shadow: 2px 2px 0 #bc4873;
+}
+.list-container .title-icon {
+  color: #e9e6c9;
+  font-size: 1rem;
+}
+.list-container .title-icon:hover {
+  color: #003f5c;
+  text-shadow: 2px 2px 0 #e9e6c9;
+  cursor: pointer;
+}
+.list-container .icon-link {
+  display: inline;
+}
+
+.list-title--edit-heading {
+  background-color: rgba(0, 63, 92, 0.7);
+  font-size: 2.5rem;
+  color: #e9e6c9;
+  text-shadow: 2px 2px 0 #003f5c;
+  padding: 0;
+  overflow: hidden;
+  display: none;
+}
+
+.list-title--edit {
+  font-family: "Titillium Web", sans-serif;
+  font-weight: bold;
+  border: none;
+  outline: none;
+  padding: 0;
+  display: none;
+  background-color: #be7b93;
+}
+.list-title--edit:focus::selection {
+  background-color: #be7b93;
+  color: #e9e6c9;
+  text-shadow: 2px 2px 0 #e9e6c9;
+}
+
+.list-title--static {
+  max-width: calc(70vw - 5em) !important;
+}
+@media (max-width: 825px) {
+  .list-title--static {
+    max-width: calc(100vw - 3.5em) !important;
+  }
+}
+
+.show-completed {
+  left: 1em;
+}
 
 .list, .new-item {
   color: #003f5c;
   grid-area: list;
   list-style: none;
-  padding: 1em;
+  padding: 0.5em 1em;
   font-size: 1.5rem;
 }
 .list li, .new-item li {
@@ -134,10 +273,16 @@ a:hover {
   font-family: "Titillium Web", sans-serif;
   font-weight: 200;
   font-size: 1.5rem;
-  width: 100%;
+  width: calc(100% - 3em);
+  padding-left: 0.5em;
+  overflow-x: scroll;
 }
-.list input[type=checkbox], .new-item input[type=checkbox] {
-  display: none;
+.list input:focus, .new-item input:focus {
+  color: #bc4873;
+  background-color: rgba(0, 63, 92, 0.1);
+}
+.list input.complete, .new-item input.complete {
+  text-decoration: line-through;
 }
 
 .checkbox {
@@ -148,6 +293,7 @@ a:hover {
   left: 0;
   background-color: #bc4873;
   border-radius: 2px;
+  border: none;
 }
 .checkbox--add {
   height: 40px;
@@ -155,49 +301,101 @@ a:hover {
   color: #e9e6c9;
   font-size: 2rem;
   border: none;
+  margin-left: 0.5em;
+}
+.checkbox:hover {
+  background-color: #be7b93;
+  cursor: pointer;
+}
+.checkbox:active {
+  outline: none;
 }
 
-.sublist {
-  left: 30px;
-  display: flex;
-}
-.sublist input {
-  color: rgba(0, 63, 92, 0.7);
-}
-.sublist .checkbox {
-  background-color: #003f5c;
+.tick {
+  color: #e9e6c9;
 }
 
-.list-item {
+.list-item, .list-item--new {
   position: relative;
   padding-left: 30px;
   display: flex;
+  flex-direction: column;
   height: 2em;
-  width: calc(100% - 60px);
 }
 .list-item--new {
+  flex-direction: row;
   border-bottom: 3px solid #bc4873;
+  padding-left: 0;
   height: 3em;
-  padding-left: 50px;
 }
 .list-item--new input {
   color: #bc4873;
+  padding-left: 3em;
 }
 .list-item--new input::placeholder {
   color: #7a7a7a;
 }
 
-.item-collection {
-  border-bottom: 1px solid rgba(0, 63, 92, 0.1);
-  padding: 0.5em 0;
+.subtask {
+  left: 30px;
+  display: flex;
+  width: calc(100% - 2.5em);
+}
+.subtask input {
+  color: rgba(0, 63, 92, 0.7);
+}
+.subtask .checkbox {
+  background-color: #003f5c;
+}
+.subtask .checkbox:hover {
+  background-color: rgba(0, 63, 92, 0.7);
+  cursor: pointer;
+}
+.subtask-new {
+  display: none;
+  margin-left: 30px;
+  width: calc(100% - 5em);
 }
 
-footer p {
-  position: fixed;
-  right: 1em;
-  bottom: 1em;
-  background-color: #e9e6c9;
+.subtask-button,
+.delete-item-button {
+  background-color: rgba(0, 0, 0, 0);
+  color: rgba(0, 63, 92, 0.7);
+  border: none;
+  font-size: 1.4rem;
+  position: absolute;
+  height: 20px;
+  width: 20px;
+  top: calc(50% - 0.8rem);
+  right: 0;
+}
+.subtask-button:hover,
+.delete-item-button:hover {
   color: #003f5c;
+  cursor: pointer;
+}
+.subtask-button a,
+.delete-item-button a {
+  color: rgba(0, 63, 92, 0.7);
+}
+.subtask-button a:hover,
+.delete-item-button a:hover {
+  color: #003f5c;
+}
+
+.item-collection {
+  border-bottom: 1px solid rgba(0, 63, 92, 0.1);
+}
+
+.created, .show-completed {
+  position: absolute;
+  bottom: 1em;
+  right: 1em;
+  padding: 0.25em 0.5em;
+  text-align: right;
+  background-color: #bc4873;
+  color: #e9e6c9;
+  font-size: 0.75rem;
 }
 
 /*# sourceMappingURL=style.css.map */

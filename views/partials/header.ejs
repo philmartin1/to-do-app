@@ -6,6 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style.css">
     <link href="https://fonts.googleapis.com/css?family=Open+Sans|Titillium+Web:200,400&display=swap" rel="stylesheet">
+    <link rel="icon" type="image/png" sizes="16x16" href="../../images/icon16.png">
+    <script src="https://kit.fontawesome.com/f607c45a19.js" crossorigin="anonymous"></script>
     <title>TO DO...</title>
 </head>
 
@@ -13,10 +15,9 @@
     <div class="container">
         <header>
 
-
             <a href="/">
                 <div class="logo-container">
-                    <!-- Used boxes and grid system to correct spacing/alignment -->
+                    <!-- Used boxes with grid to correct spacing/alignment -->
                     <p class="box1">T</p>
                     <p class="box2">O</p>
                     <p class="box3">D</p>
@@ -24,14 +25,24 @@
                 </div>
             </a>
 
+            <div class="menu">
+            </div>
 
             <nav>
                 <ul class="nav-list">
-                    <li><a href="/general">General</a></li>
-                    <li><a href="#">Family</a></li>
-                    <li><a href="#">Work</a></li>
-                    <li class="list-title--new"><a href="#">[create new list]</a>
+                    <% menu.forEach(function(item) { %>
+                    <li><a href="/<%= item %>"><%= item %></a></li>
+                    <% }) %>
+                    <li class="list-title--new">
+                        <form class="new-item" action="/new-list" method="post">
+                            <div class="list-item list-item--new">
+                                <input type="text" name="newList" placeholder="New list" autocomplete="off"></input>
+                                <button class="checkbox checkbox--add" type="submit" name="list" value="">+</button>
+                            </div>
+                        </form>
                     </li>
+
                 </ul>
             </nav>
+
         </header>

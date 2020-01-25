@@ -1,10 +1,33 @@
+.container {
+    position: relative;
+    display: grid;
+    grid-template-areas:
+        "header list";
+    grid-template-columns: 1fr 3fr;
+
+    @media (max-width: 825px) {
+        grid-template-areas:
+            "header"
+            "list";
+        grid-template-columns: 1fr;
+    }
+}
+
 header {
-    padding: 0.5em;
-    font-size: 5rem;
+    padding: 2em;
     font-weight: bold;
     background-color: $darkteal;
     color: $yellow;
     grid-area: header;
+    max-width: 30vw;
+
+    @media (max-width: 825px) {
+        display: flex;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        padding: 1em;
+        max-width: initial;
+    }
 }
 
 a {
@@ -18,13 +41,25 @@ a {
 
 .logo-container {
     display: grid;
-    grid-template-areas: "box1 box2""box3 box4";
+    grid-template-areas:
+        "box1 box2"
+        "box3 box4";
     font-family: "Open Sans", sans-serif;
-    font-size: 7rem;
+    font-size: 6em;
     letter-spacing: 20px;
     line-height: 1;
-    border-bottom: 3px solid $grey;
+    border-bottom: 3px solid $yellow;
+    max-width: 300px;
 
+    &:hover {
+        border-bottom: 3px solid $pink;
+    }
+
+    @media (max-width: 825px) {
+        font-size: 2rem;
+        letter-spacing: 10px;
+        margin-right: 7em;
+    }
 }
 
 .box1 {
@@ -49,16 +84,36 @@ a {
 
 }
 
-.container {
-    display: grid;
-    grid-template-areas:
-        "header list"
-        "header list"
-        "header list"
-        "header list"
-        "header list";
-    grid-template-columns: 1fr 3fr;
-    height: 100vh;
+.menu {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    font-family: "Open Sans", sans-serif;
+    font-weight: 200;
+    font-size: 2rem;
+    letter-spacing: 15px;
+    cursor: pointer;
+
+    &::after {
+        content: "// LISTS";
+        letter-spacing: 0;
+    }
+
+    &:hover {
+        color: $pink;
+    }
+
+    @media (min-width: 825px) {
+        display: none;
+    }
+}
+
+nav {
+    @media (max-width: 825px) {
+        display: none;
+        margin: auto;
+        width: 60vw;
+    }
 }
 
 .nav-list {
@@ -82,14 +137,28 @@ a {
 
     li {
         padding: 0.5em;
+        border-bottom: 1px solid $pinklight;
+        overflow: scroll;
 
         &:hover {
-            transition: all 0.5s ease;
-            transform: scale(1.2);
+            transition: all 0.2s ease;
+            transform: scale(1.1);
+
+            a {
+                color: $yellow;
+            }
         }
+
+        &.list-title--new:hover {
+            background-color: $darkteal;
+            transform: none;
+        }
+
     }
+
 }
 
-.list-title--new {
-    font-weight: 200;
+.list-title--new input {
+    background-color: $darkteal !important;
+    color: $yellow !important;
 }
