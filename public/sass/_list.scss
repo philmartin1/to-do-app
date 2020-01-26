@@ -1,11 +1,12 @@
 .list-container {
     background-color: $yellow;
-    min-height: 100vh;
+    min-height: calc(100vh - 1.5em);
     color: $pink;
-    max-width: 70vw;
+    padding-bottom: 1.5em;
 
     @media (max-width: 825px) {
         max-width: initial;
+        min-height: calc(100vh - 8em);
     }
 
     .title-container {
@@ -94,10 +95,10 @@
 }
 
 .list-title--static {
-    max-width: calc(70vw - 5em) !important;
+    max-width: calc(70vw - 5em);
 
     @media (max-width: 825px) {
-        max-width: calc(100vw - 3.5em) !important;
+        max-width: calc(100vw - 3.5em);
     }
 }
 
@@ -263,11 +264,19 @@
 
 .created {
     position: absolute;
-    bottom: 1em;
-    right: 1em;
+    bottom: 0;
+    right: 0;
     padding: 0.25em 0.5em;
     text-align: right;
-    background-color: $pink;
-    color: $yellow;
+    color: $pink;
     font-size: 0.75rem;
+}
+
+input.new-list {
+    background-color: $darkteal;
+    color: $yellow;
+
+    &:focus {
+        color: $yellow;
+    }
 }

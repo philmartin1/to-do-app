@@ -36,6 +36,8 @@ header {
 }
 @media (max-width: 825px) {
   header {
+    place-content: center;
+    min-height: 4.5em;
     display: flex;
     justify-content: space-between;
     flex-wrap: wrap;
@@ -116,6 +118,10 @@ a:hover {
   }
 }
 
+nav {
+  position: sticky;
+  top: 0;
+}
 @media (max-width: 825px) {
   nav {
     display: none;
@@ -157,20 +163,16 @@ a:hover {
   transform: none;
 }
 
-.list-title--new input {
-  background-color: #003f5c !important;
-  color: #e9e6c9 !important;
-}
-
 .list-container {
   background-color: #e9e6c9;
-  min-height: 100vh;
+  min-height: calc(100vh - 1.5em);
   color: #bc4873;
-  max-width: 70vw;
+  padding-bottom: 1.5em;
 }
 @media (max-width: 825px) {
   .list-container {
     max-width: initial;
+    min-height: calc(100vh - 8em);
   }
 }
 .list-container .title-container {
@@ -243,11 +245,11 @@ a:hover {
 }
 
 .list-title--static {
-  max-width: calc(70vw - 5em) !important;
+  max-width: calc(70vw - 5em);
 }
 @media (max-width: 825px) {
   .list-title--static {
-    max-width: calc(100vw - 3.5em) !important;
+    max-width: calc(100vw - 3.5em);
   }
 }
 
@@ -389,13 +391,20 @@ a:hover {
 
 .created, .show-completed {
   position: absolute;
-  bottom: 1em;
-  right: 1em;
+  bottom: 0;
+  right: 0;
   padding: 0.25em 0.5em;
   text-align: right;
-  background-color: #bc4873;
-  color: #e9e6c9;
+  color: #bc4873;
   font-size: 0.75rem;
+}
+
+input.new-list {
+  background-color: #003f5c;
+  color: #e9e6c9;
+}
+input.new-list:focus {
+  color: #e9e6c9;
 }
 
 /*# sourceMappingURL=style.css.map */
