@@ -1,14 +1,15 @@
 * {
-    padding: 0;
-    margin: 0;
+  padding: 0;
+  margin: 0;
 }
 
 body {
-    font-family: 'Titillium Web', sans-serif;
-    font-weight: 200;
+  background-color: $darkteal;
+  font-family: "Titillium Web", sans-serif;
+  font-weight: 200;
 }
 
 ::selection {
-    background-color: $pink;
-    color: $yellow
+  background-color: $pink;
+  color: $yellow;
 }
